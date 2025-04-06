@@ -14,4 +14,4 @@ jobs:
           export PATH=/global/homes/y/yuxihong/pylops-mpi-actions/install/bin:$PATH
       - name: Testing using pytest-mpi
         run: |
-          srun -t 1:00:00 -N 1 -n 4 -c 64 --cpu-bind=cores -q interactive -C cpu python testmpi.py
+          srun -t 1:00:00 -N 1 -n 4 -c 64 --cpu-bind=cores -q interactive -C cpu python3 /global/homes/y/yuxihong/pylops-mpi-actions/testmpi.py
