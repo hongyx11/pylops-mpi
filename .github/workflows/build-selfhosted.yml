@@ -15,3 +15,6 @@ jobs:
       - name: Testing using pytest-mpi
         run: |
           srun -t 1:00:00 -N 1 -n 4 -c 64 --cpu-bind=cores -q interactive -C cpu python3 /global/homes/y/yuxihong/pylops-mpi-actions/testmpi.py
+      - name: Testing NCCL with cupy
+        run: |
+          srun -t 1:00:00 -N 1 -n 4 -c 32 --cpu-bind=cores -q interactive -C gpu -A m4293_g python3 /global/homes/y/yuxihong/pylops-mpi-actions/testmpinccl.py
