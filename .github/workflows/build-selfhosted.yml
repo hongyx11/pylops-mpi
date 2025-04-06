@@ -11,20 +11,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Installing Dependencies
         run: |
-          wget https://www.python.org/ftp/python/3.11.11/Python-3.11.11.tgz
-          tar -xzf Python-3.11.11.tgz 
-          cd Python-3.11.11
-          CC=cc ./configure --prefix=$(pwd)/install 
-          make -j32
-          make install
-          export PATH=$(pwd)/install/bin:$PATH
-          cd .. 
-          python3 -m pip install --upgrade pip setuptools
-          wget https://github.com/mpi4py/mpi4py/archive/refs/tags/4.0.3.zip
-          unzip 4.0.3.zip
-          cd mpi4py-4.0.3
-          MPI_CC=CC python3 setup.py build
-          python3 setup.py install
+          export PATH=/global/homes/y/yuxihong/pylops-mpi-actions/install/bin:$PATH
       - name: Testing using pytest-mpi
         run: |
-          srun -t 1:00:00 -N 1 -n 4 -c 64 --cpu-bind=cores -q interactive -C cpu pytest --with-mpi
+          srun -t 1:00:00 -N 1 -n 4 -c 64 --cpu-bind=cores -q interactive -C cpu python testmpi.py
