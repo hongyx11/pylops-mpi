@@ -152,8 +152,8 @@ d_dist = VStack @ refl_dist
 d = d_dist.asarray().reshape((nstot, nr, nt))
 
 ###############################################################################
-
-# Adjoint
+# We calculate now the adjoint and model the data using the adjoint reflectivity
+# as input.
 madj_dist = VStack.H @ d_dist
 madj = madj_dist.asarray().reshape((nx, nz))
 d_adj_dist = VStack @ madj_dist
@@ -209,3 +209,6 @@ if rank == 0:
     axs[2].set_title(r"$d_{inv}$")
     axs[2].axis("tight")
     plt.tight_layout()
+
+###############################################################################
+# To run this tutorial with our NCCL backend, refer to `Least-squares Migration with NCCL tutorial <https://github.com/PyLops/pylops-mpi/blob/main/tutorials_nccl/lsm_nccl.py>`_ in the repository.

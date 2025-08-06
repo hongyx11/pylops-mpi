@@ -162,15 +162,15 @@
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../api/index.html">
-    PyLops MPI API
+  <a class="nav-link nav-internal" href="../../benchmarking.html">
+    Benchmarking
   </a>
 </li>
 
 
 <li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../gallery/index.html">
-    Gallery
+  <a class="nav-link nav-internal" href="../../api/index.html">
+    PyLops MPI API
   </a>
 </li>
 
@@ -182,6 +182,13 @@
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../gallery/index.html">
+    Gallery
+  </a>
+</li>
+
+
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../tutorials/index.html">
     Tutorials
@@ -307,6 +314,13 @@
 <li class="nav-item ">
   <a class="nav-link nav-internal" href="../../gpu.html">
     GPU Support
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../benchmarking.html">
+    Benchmarking
   </a>
 </li>
 
@@ -453,7 +467,7 @@
 <span class="n">nccl_message</span> <span class="o">=</span> <span class="n">deps</span><span class="o">.</span><span class="n">nccl_import</span><span class="p">(</span><span class="s2">&quot;the DistributedArray module&quot;</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="n">nccl_message</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cupy_message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">pylops_mpi.utils._nccl</span><span class="w"> </span><span class="kn">import</span> <span class="n">nccl_allgather</span><span class="p">,</span> <span class="n">nccl_allreduce</span><span class="p">,</span> <span class="n">nccl_asarray</span><span class="p">,</span> <span class="n">nccl_bcast</span><span class="p">,</span> <span class="n">nccl_split</span><span class="p">,</span> <span class="n">nccl_send</span><span class="p">,</span> <span class="n">nccl_recv</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">pylops_mpi.utils._nccl</span><span class="w"> </span><span class="kn">import</span> <span class="n">nccl_allgather</span><span class="p">,</span> <span class="n">nccl_allreduce</span><span class="p">,</span> <span class="n">nccl_asarray</span><span class="p">,</span> <span class="n">nccl_bcast</span><span class="p">,</span> <span class="n">nccl_split</span><span class="p">,</span> <span class="n">nccl_send</span><span class="p">,</span> <span class="n">nccl_recv</span><span class="p">,</span> <span class="n">_prepare_nccl_allgather_inputs</span><span class="p">,</span> <span class="n">_unroll_nccl_allgather_recv</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">cupy.cuda.nccl</span><span class="w"> </span><span class="kn">import</span> <span class="n">NcclCommunicator</span>
 <span class="k">else</span><span class="p">:</span>
     <span class="n">NcclCommunicator</span> <span class="o">=</span> <span class="n">Any</span>
@@ -899,7 +913,7 @@
             <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">partition</span> <span class="ow">is</span> <span class="n">Partition</span><span class="o">.</span><span class="n">SCATTER</span><span class="p">:</span>
                 <span class="n">local_shape</span> <span class="o">=</span> <span class="n">local_shapes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">]</span>
                 <span class="c1"># Check if local shape sum up to global shape and other dimensions align with global shape</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allreduce</span><span class="p">(</span><span class="n">local_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">])</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">]</span> <span class="ow">or</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="o">.</span><span class="n">allreduce</span><span class="p">(</span><span class="n">local_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">])</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">global_shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">]</span> <span class="ow">or</span> \
                         <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">local_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">global_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">)):</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Local shapes don&#39;t align with the global shape;&quot;</span>
                                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">local_shapes</span><span class="si">}</span><span class="s2"> != </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">global_shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -947,7 +961,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Allgather operation</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">deps</span><span class="o">.</span><span class="n">nccl_enabled</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">nccl_allgather</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">,</span> <span class="n">send_buf</span><span class="p">,</span> <span class="n">recv_buf</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">send_buf</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="n">nccl_allgather</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">,</span> <span class="n">send_buf</span><span class="p">,</span> <span class="n">recv_buf</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">send_shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="o">.</span><span class="n">allgather</span><span class="p">(</span><span class="n">send_buf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">padded_send</span><span class="p">,</span> <span class="n">padded_recv</span><span class="p">)</span> <span class="o">=</span> <span class="n">_prepare_nccl_allgather_inputs</span><span class="p">(</span><span class="n">send_buf</span><span class="p">,</span> <span class="n">send_shapes</span><span class="p">)</span>
+                <span class="n">raw_recv</span> <span class="o">=</span> <span class="n">nccl_allgather</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">,</span> <span class="n">padded_send</span><span class="p">,</span> <span class="n">recv_buf</span> <span class="k">if</span> <span class="n">recv_buf</span> <span class="k">else</span> <span class="n">padded_recv</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">_unroll_nccl_allgather_recv</span><span class="p">(</span><span class="n">raw_recv</span><span class="p">,</span> <span class="n">padded_send</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">send_shapes</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">recv_buf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="o">.</span><span class="n">allgather</span><span class="p">(</span><span class="n">send_buf</span><span class="p">)</span>
@@ -958,7 +978,13 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Allgather operation with subcommunicator</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">deps</span><span class="o">.</span><span class="n">nccl_enabled</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;base_comm_nccl&quot;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">nccl_allgather</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_comm</span><span class="p">,</span> <span class="n">send_buf</span><span class="p">,</span> <span class="n">recv_buf</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">send_buf</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">int</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="n">nccl_allgather</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_comm</span><span class="p">,</span> <span class="n">send_buf</span><span class="p">,</span> <span class="n">recv_buf</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">send_shapes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allgather_subcomm</span><span class="p">(</span><span class="n">send_buf</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">padded_send</span><span class="p">,</span> <span class="n">padded_recv</span><span class="p">)</span> <span class="o">=</span> <span class="n">_prepare_nccl_allgather_inputs</span><span class="p">(</span><span class="n">send_buf</span><span class="p">,</span> <span class="n">send_shapes</span><span class="p">)</span>
+                <span class="n">raw_recv</span> <span class="o">=</span> <span class="n">nccl_allgather</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sub_comm</span><span class="p">,</span> <span class="n">padded_send</span><span class="p">,</span> <span class="n">recv_buf</span> <span class="k">if</span> <span class="n">recv_buf</span> <span class="k">else</span> <span class="n">padded_recv</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">_unroll_nccl_allgather_recv</span><span class="p">(</span><span class="n">raw_recv</span><span class="p">,</span> <span class="n">padded_send</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">send_shapes</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">recv_buf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_comm</span><span class="o">.</span><span class="n">allgather</span><span class="p">(</span><span class="n">send_buf</span><span class="p">)</span>
@@ -973,7 +999,7 @@
                 <span class="n">count</span> <span class="o">=</span> <span class="n">send_buf</span><span class="o">.</span><span class="n">size</span>
             <span class="n">nccl_send</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">,</span> <span class="n">send_buf</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="o">.</span><span class="n">Send</span><span class="p">(</span><span class="n">send_buf</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">send_buf</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">tag</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_recv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recv_buf</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Receive operation</span>
@@ -990,11 +1016,8 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Using recv with NCCL must also supply receiver buffer &quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c1"># MPI allows a receiver buffer to be optional</span>
-            <span class="k">if</span> <span class="n">recv_buf</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="o">.</span><span class="n">Recv</span><span class="p">(</span><span class="n">buf</span><span class="o">=</span><span class="n">recv_buf</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">recv_buf</span>
+            <span class="c1"># MPI allows a receiver buffer to be optional and receives as a Python Object</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span> <span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_nccl_local_shapes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">masked</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the the list of shapes of every GPU in the communicator</span>
@@ -1096,9 +1119,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_mask</span><span class="p">(</span><span class="n">dist_array</span><span class="p">)</span>
         <span class="n">ncp</span> <span class="o">=</span> <span class="n">get_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
         <span class="c1"># Convert to Partition.SCATTER if Partition.BROADCAST</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">DistributedArray</span><span class="o">.</span><span class="n">to_dist</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_array</span><span class="p">)</span> \
+        <span class="n">x</span> <span class="o">=</span> <span class="n">DistributedArray</span><span class="o">.</span><span class="n">to_dist</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_array</span><span class="p">,</span> <span class="n">base_comm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="p">,</span> <span class="n">base_comm_nccl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">)</span> \
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">partition</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Partition</span><span class="o">.</span><span class="n">BROADCAST</span><span class="p">,</span> <span class="n">Partition</span><span class="o">.</span><span class="n">UNSAFE_BROADCAST</span><span class="p">]</span> <span class="k">else</span> <span class="bp">self</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">DistributedArray</span><span class="o">.</span><span class="n">to_dist</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">dist_array</span><span class="o">.</span><span class="n">local_array</span><span class="p">)</span> \
+        <span class="n">y</span> <span class="o">=</span> <span class="n">DistributedArray</span><span class="o">.</span><span class="n">to_dist</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">dist_array</span><span class="o">.</span><span class="n">local_array</span><span class="p">,</span> <span class="n">base_comm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="p">,</span> <span class="n">base_comm_nccl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">)</span> \
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">partition</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Partition</span><span class="o">.</span><span class="n">BROADCAST</span><span class="p">,</span> <span class="n">Partition</span><span class="o">.</span><span class="n">UNSAFE_BROADCAST</span><span class="p">]</span> <span class="k">else</span> <span class="n">dist_array</span>
         <span class="c1"># Flatten the local arrays and calculate dot product</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_allreduce_subcomm</span><span class="p">(</span><span class="n">ncp</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">local_array</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">local_array</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))</span>
@@ -1151,6 +1174,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">arr</span> <span class="o">=</span> <span class="n">DistributedArray</span><span class="p">(</span><span class="n">global_shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">global_shape</span><span class="p">,</span>
                                <span class="n">base_comm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="p">,</span>
+                               <span class="n">base_comm_nccl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">,</span>
                                <span class="n">partition</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">partition</span><span class="p">,</span>
                                <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span>
                                <span class="n">local_shapes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_shapes</span><span class="p">,</span>
@@ -1171,7 +1195,7 @@
 <span class="sd">            Axis along which vector norm needs to be computed. Defaults to ``-1``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Convert to Partition.SCATTER if Partition.BROADCAST</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">DistributedArray</span><span class="o">.</span><span class="n">to_dist</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_array</span><span class="p">)</span> \
+        <span class="n">x</span> <span class="o">=</span> <span class="n">DistributedArray</span><span class="o">.</span><span class="n">to_dist</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_array</span><span class="p">,</span> <span class="n">base_comm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="p">,</span> <span class="n">base_comm_nccl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">)</span> \
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">partition</span> <span class="ow">in</span> <span class="p">[</span><span class="n">Partition</span><span class="o">.</span><span class="n">BROADCAST</span><span class="p">,</span> <span class="n">Partition</span><span class="o">.</span><span class="n">UNSAFE_BROADCAST</span><span class="p">]</span> <span class="k">else</span> <span class="bp">self</span>
         <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
             <span class="c1"># Flatten the local arrays and calculate norm</span>
@@ -1186,6 +1210,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">conj</span> <span class="o">=</span> <span class="n">DistributedArray</span><span class="p">(</span><span class="n">global_shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">global_shape</span><span class="p">,</span>
                                 <span class="n">base_comm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="p">,</span>
+                                <span class="n">base_comm_nccl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">,</span>
                                 <span class="n">partition</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">partition</span><span class="p">,</span>
                                 <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span>
                                 <span class="n">local_shapes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_shapes</span><span class="p">,</span>
@@ -1200,6 +1225,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">arr</span> <span class="o">=</span> <span class="n">DistributedArray</span><span class="p">(</span><span class="n">global_shape</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">global_shape</span><span class="p">,</span>
                                <span class="n">base_comm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm</span><span class="p">,</span>
+                               <span class="n">base_comm_nccl</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_comm_nccl</span><span class="p">,</span>
                                <span class="n">partition</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">partition</span><span class="p">,</span>
                                <span class="n">axis</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">axis</span><span class="p">,</span>
                                <span class="n">local_shapes</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">local_shapes</span><span class="p">,</span>
@@ -1358,7 +1384,8 @@
 <span class="sd">            Global Array gathered at all ranks</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">distarr</span><span class="o">.</span><span class="n">asarray</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">distarr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">distarrays</span><span class="p">])</span>
+        <span class="n">ncp</span> <span class="o">=</span> <span class="n">get_module</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">distarrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ncp</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">distarr</span><span class="o">.</span><span class="n">asarray</span><span class="p">()</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">distarr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">distarrays</span><span class="p">])</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_stacked_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stacked_array</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Check that arrays have consistent size</span>

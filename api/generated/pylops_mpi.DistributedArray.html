@@ -164,16 +164,16 @@
 </li>
 
 
-<li class="nav-item current active">
-  <a class="nav-link nav-internal" href="../index.html">
-    PyLops MPI API
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../benchmarking.html">
+    Benchmarking
   </a>
 </li>
 
 
-<li class="nav-item ">
-  <a class="nav-link nav-internal" href="../../gallery/index.html">
-    Gallery
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../index.html">
+    PyLops MPI API
   </a>
 </li>
 
@@ -185,6 +185,13 @@
                 </button>
                 <ul id="pst-nav-more-links" class="dropdown-menu">
                     
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../gallery/index.html">
+    Gallery
+  </a>
+</li>
+
+
 <li class=" ">
   <a class="nav-link dropdown-item nav-internal" href="../../tutorials/index.html">
     Tutorials
@@ -316,6 +323,13 @@
 </li>
 
 
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../benchmarking.html">
+    Benchmarking
+  </a>
+</li>
+
+
 <li class="nav-item current active">
   <a class="nav-link nav-internal" href="../index.html">
     PyLops MPI API
@@ -402,6 +416,7 @@
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.MPIStackedLinearOperator.html">pylops_mpi.MPIStackedLinearOperator</a></li>
 </ul>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MPIMatrixMult.html">pylops_mpi.basicoperators.MPIMatrixMult</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MPIBlockDiag.html">pylops_mpi.basicoperators.MPIBlockDiag</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MPIStackedBlockDiag.html">pylops_mpi.basicoperators.MPIStackedBlockDiag</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MPIVStack.html">pylops_mpi.basicoperators.MPIVStack</a></li>
@@ -432,7 +447,9 @@
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.DistributedArray.local_split.html">pylops_mpi.DistributedArray.local_split</a></li>
 </ul>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.dottest.dottest.html">pylops_mpi.utils.dottest.dottest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.dottest.html">pylops_mpi.utils.dottest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.benchmark.html">pylops_mpi.utils.benchmark</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.mark.html">pylops_mpi.utils.mark</a></li>
 </ul>
 </div>
 </nav></div>
@@ -519,7 +536,7 @@ instead.</p>
 <dd class="field-odd"><dl>
 <dt><strong>global_shape</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Shape of the global array.</p>
 </dd>
-<dt><strong>base_comm</strong><span class="classifier"><a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/reference/mpi4py.MPI.Comm.html#mpi4py.MPI.Comm" title="(in MPI for Python v4.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpi4py.MPI.Comm</span></code></a>, optional</span></dt><dd><p>MPI Communicator over which array is distributed.
+<dt><strong>base_comm</strong><span class="classifier"><a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/reference/mpi4py.MPI.Comm.html#mpi4py.MPI.Comm" title="(in MPI for Python v4.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpi4py.MPI.Comm</span></code></a>, optional</span></dt><dd><p>MPI Communicator over which array is distributed.
 Defaults to <code class="docutils literal notranslate"><span class="pre">mpi4py.MPI.COMM_WORLD</span></code>.</p>
 </dd>
 <dt><strong>base_comm_nccl</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cupy.cuda.nccl.NcclCommunicator</span></code>, optional</span></dt><dd><p>NCCL Communicator over which array is distributed. Whenever NCCL
@@ -599,6 +616,9 @@ operations on the distributed array such as dot product or norm.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Distributed Array"><img alt="" src="../../_images/sphx_glr_plot_distributed_array_thumb.png" />
 <p><a class="reference internal" href="../../gallery/plot_distributed_array.html#sphx-glr-gallery-plot-distributed-array-py"><span class="std std-ref">Distributed Array</span></a></p>
   <div class="sphx-glr-thumbnail-title">Distributed Array</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Note that whilst the different blocks of the matrix \mathbf{A} are directly stored in the operator on different ranks, the matrix \mathbf{X} is effectively represented by a 1-D :pypylops_mpi.DistributedArray where the different blocks are flattened and stored on different ranks. Note that to optimize communications, the ranks are organized in a 2D grid and some of the row blocks of \mathbf{A} and column blocks of \mathbf{X} are replicated across different ranks - see below for details."><img alt="" src="../../_images/sphx_glr_plot_matrixmult_thumb.png" />
+<p><a class="reference internal" href="../../gallery/plot_matrixmult.html#sphx-glr-gallery-plot-matrixmult-py"><span class="std std-ref">Distributed Matrix Multiplication</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Distributed Matrix Multiplication</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the use of the :pypylops_mpi.MPILinearOperator to wrap PyLops Operators. PyLops operators can be converted into :pypylops_mpi.MPILinearOperator using the :pypylops_mpi.asmpilinearoperator method. Additionally, the example showcases how to use these wrapped PyLops operators with other operators provided by PyLops-MPI."><img alt="" src="../../_images/sphx_glr_plot_mpilinop_thumb.png" />
 <p><a class="reference internal" href="../../gallery/plot_mpilinop.html#sphx-glr-gallery-plot-mpilinop-py"><span class="std std-ref">MPILinearOperator</span></a></p>
   <div class="sphx-glr-thumbnail-title">MPILinearOperator</div>
@@ -611,6 +631,9 @@ operations on the distributed array such as dot product or norm.</p>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use &quot;stacking&quot; operators such as :pypylops_mpi.basicoperators.MPIVStack, :pypylops_mpi.basicoperators.MPIHStack and :pypylops_mpi.basicoperators.MPIBlockDiag."><img alt="" src="../../_images/sphx_glr_plot_stacking_thumb.png" />
 <p><a class="reference internal" href="../../gallery/plot_stacking.html#sphx-glr-gallery-plot-stacking-py"><span class="std std-ref">Stacking Operators</span></a></p>
   <div class="sphx-glr-thumbnail-title">Stacking Operators</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip=":pypylops_mpi.utils.benchmark is a decorator used to decorate any function to measure its execution time from start to finish :pypylops_mpi.utils.mark is a function used inside the benchmark-decorated function to provide fine-grain time measurements."><img alt="" src="../../_images/sphx_glr_benchmarking_thumb.png" />
+<p><a class="reference internal" href="../../tutorials/benchmarking.html#sphx-glr-tutorials-benchmarking-py"><span class="std std-ref">Benchmark Utility in PyLops-MPI</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Benchmark Utility in PyLops-MPI</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="We solve the inverse of the demigration operator to obtain accurate and detailed sub surface images. Regardless of the choice of the modelling operator (i.e., ray-based or full wavefield-based), the demigration/migration process can be expressed as a linear operator of such kind:"><img alt="" src="../../_images/sphx_glr_lsm_thumb.png" />
 <p><a class="reference internal" href="../../tutorials/lsm.html#sphx-glr-tutorials-lsm-py"><span class="std std-ref">Least-squares Migration</span></a></p>
   <div class="sphx-glr-thumbnail-title">Least-squares Migration</div>

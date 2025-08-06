@@ -277,3 +277,6 @@ if rank == 0:
     axs[5][2].imshow(minv3d_reg[:, :, 220].T, cmap='gist_rainbow', vmin=m.min(), vmax=m.max())
     axs[5][2].set_title('Regularized Inverted Model iter x-y')
     axs[5][2].axis('tight')
+
+###############################################################################
+# To run this tutorial with our NCCL backend, refer to `Post Stack Inversion with NCCL tutorial <https://github.com/PyLops/pylops-mpi/blob/main/tutorials_nccl/poststack_nccl.py>`_ in the repository.

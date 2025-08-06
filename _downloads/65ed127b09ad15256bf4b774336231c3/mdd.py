@@ -37,16 +37,16 @@ cdtype = np.complex64
 # Input parameters
 par = {
     "ox": -300,
-    "dx": 10,
-    "nx": 61,
+    "dx": 5,
+    "nx": 121,
     "oy": -500,
-    "dy": 10,
-    "ny": 101,
+    "dy": 5,
+    "ny": 201,
     "ot": 0,
-    "dt": 0.004,
-    "nt": 400,
+    "dt": 0.002,
+    "nt": 800,
     "f0": 20,
-    "nfmax": 200,
+    "nfmax": 400,
 }
 
 t0_m = 0.2
@@ -231,3 +231,6 @@ if rank == 0:
     )
     ax3.set_ylim([t2[-1], t2[0]])
     fig.tight_layout()
+
+###############################################################################
+# To run this tutorial with our NCCL backend, refer to `Multi-Dimensional Deconvolution with NCCL tutorial <https://github.com/PyLops/pylops-mpi/blob/main/tutorials_nccl/mdd_nccl.py>`_ in the repository.
