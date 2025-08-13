@@ -12,8 +12,8 @@ on:
 jobs:
   build:
     strategy:
-    matrix:
-      rank: ['2', '4']
+      matrix:
+        rank: ['2', '4']
     runs-on: self-hosted
     steps:
       - name: Checkout
