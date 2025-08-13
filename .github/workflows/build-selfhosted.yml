@@ -32,5 +32,5 @@ jobs:
         run: pip install .
       - name: Testing using pytest-mpi
         run: |
-          srun -n ${{ matrix.rank }} pytest tests/ --with-mpi
+          srun --account=yuxilab -n ${{ matrix.rank }} --gpus-per-task L40S:1 pytest tests/ --with-mpi
           
