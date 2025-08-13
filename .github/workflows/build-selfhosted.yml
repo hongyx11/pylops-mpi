@@ -1,0 +1,40 @@
+name: PyLops-MPI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  
+jobs:
+  build:
+    strategy:
+    matrix:
+      rank: ['2', '4']
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Get history and tags for SCM versioning to work
+        run: |
+          git fetch --prune --unshallow
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+      - name: Set up Python environment and Install dependencies
+        run: |
+          python3 -m venv pylopsvenv 
+          source pylopsvenv/bin/activate 
+          echo $(which python3)
+          echo $(which pip3)
+          python3 -m pip install --upgrade pip setuptools
+          pip install flake8 pytest setuptools-scm
+          pip install -r requirements-dev.txt
+          pip install cupy-cuda12x nvidia-nccl-cu12
+      - name: Install pylops-mpi
+        run: pip install .
+      - name: Testing using pytest-mpi
+        run: |
+          srun -n ${{ matrix.rank }} pytest tests/ --with-mpi
+          
