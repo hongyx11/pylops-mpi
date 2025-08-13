@@ -29,8 +29,15 @@ jobs:
           pip install -r requirements-dev.txt
           pip install cupy-cuda12x nvidia-nccl-cu12
       - name: Install pylops-mpi
-        run: pip install .
+        run: |
+          source pylopsvenv/bin/activate 
+          echo $(which python3)
+          echo $(which pip3)
+          pip install .
       - name: Testing using pytest-mpi
         run: |
+          source pylopsvenv/bin/activate 
+          echo $(which python3)
+          echo $(which pip3)
           srun --account=yuxilab -n ${{ matrix.rank }} --gpus-per-task L40S:1 pytest tests/ --with-mpi
           
