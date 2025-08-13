@@ -1,4 +1,4 @@
-name: PyLops-MPI
+name: PyLops-MPI GPU Test
 
 on:
   push:
