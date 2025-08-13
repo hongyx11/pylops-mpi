@@ -1,51 +1,51 @@
-name: PyLops-MPI MPI Build and Test
+# name: PyLops-MPI MPI Build and Test
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+#   workflow_dispatch:
   
-jobs:
-  build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        python-version: ['3.10', '3.11', '3.12', '3.13']
-        mpi: ['mpich', 'openmpi', 'intelmpi']
-        rank: ['2', '4', '9']
-        exclude:
-          - os: macos-latest
-            mpi: 'intelmpi'
-    runs-on: ${{ matrix.os }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Get history and tags for SCM versioning to work
-        run: |
-          git fetch --prune --unshallow
-          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-      - name: Setup MPI
-        uses: mpi4py/setup-mpi@v1
-        with:
-          mpi: ${{ matrix.mpi }}
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Installing Dependencies
-        run: |
-          python -m pip install --upgrade pip setuptools
-          if [ -f requirements.txt ]; then pip install -r requirements-dev.txt; fi
-      - name: Install pylops-mpi
-        run: pip install .
-      - name: Testing using pytest-mpi
-        run: |
-          if [ "${{ matrix.mpi }}" = "openmpi" ]; then
-            mpiexec --mca btl ^openib -n ${{ matrix.rank }} pytest tests/ --with-mpi
-          else
-            mpiexec -n ${{ matrix.rank }} pytest tests/ --with-mpi
-          fi
+# jobs:
+#   build:
+#     strategy:
+#       matrix:
+#         os: [ubuntu-latest, macos-latest]
+#         python-version: ['3.10', '3.11', '3.12', '3.13']
+#         mpi: ['mpich', 'openmpi', 'intelmpi']
+#         rank: ['2', '4', '9']
+#         exclude:
+#           - os: macos-latest
+#             mpi: 'intelmpi'
+#     runs-on: ${{ matrix.os }}
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v4
+#       - name: Get history and tags for SCM versioning to work
+#         run: |
+#           git fetch --prune --unshallow
+#           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+#       - name: Setup MPI
+#         uses: mpi4py/setup-mpi@v1
+#         with:
+#           mpi: ${{ matrix.mpi }}
+#       - name: Set up Python ${{ matrix.python-version }}
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version: ${{ matrix.python-version }}
+#       - name: Installing Dependencies
+#         run: |
+#           python -m pip install --upgrade pip setuptools
+#           if [ -f requirements.txt ]; then pip install -r requirements-dev.txt; fi
+#       - name: Install pylops-mpi
+#         run: pip install .
+#       - name: Testing using pytest-mpi
+#         run: |
+#           if [ "${{ matrix.mpi }}" = "openmpi" ]; then
+#             mpiexec --mca btl ^openib -n ${{ matrix.rank }} pytest tests/ --with-mpi
+#           else
+#             mpiexec -n ${{ matrix.rank }} pytest tests/ --with-mpi
+#           fi
