@@ -40,5 +40,5 @@ jobs:
           echo $(which python3)
           echo $(which pip3)
           export PYLOPS_MPI_CUDA_AWARE=0; export TEST_CUPY_PYLOPS=1
-          srun --mpi=pmix --account=yuxilab -n ${{ matrix.rank }} --gpus-per-task L40S:1 pytest tests/ --with-mpi
+          srun --mpi=pmix --account=yuxilab -n ${{ matrix.rank }} --gpus=L40S:${{ matrix.rank }} pytest tests/ --with-mpi
           
