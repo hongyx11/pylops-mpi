@@ -447,6 +447,11 @@
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.DistributedArray.local_split.html">pylops_mpi.DistributedArray.local_split</a></li>
 </ul>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MatrixMult.block_gather.html">pylops_mpi.basicoperators.MatrixMult.block_gather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MatrixMult.local_block_split.html">pylops_mpi.basicoperators.MatrixMult.local_block_split</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MatrixMult.active_grid_comm.html">pylops_mpi.basicoperators.MatrixMult.active_grid_comm</a></li>
+</ul>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.dottest.html">pylops_mpi.utils.dottest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.benchmark.html">pylops_mpi.utils.benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.mark.html">pylops_mpi.utils.mark</a></li>
@@ -534,7 +539,7 @@ class of any new stacked operator developed within pylops-mpi.</p>
 <dd class="field-odd"><dl>
 <dt><strong>shape</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple(int,</span> <span class="pre">int)</span></code>, optional</span></dt><dd><p>Shape of the MPIStackedLinearOperator. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd>
-<dt><strong>dtype</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Type of elements in input array. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dt><strong>dtype</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Type of elements in input array. Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
 </dd>
 <dt><strong>base_comm</strong><span class="classifier"><a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/reference/mpi4py.MPI.Comm.html#mpi4py.MPI.Comm" title="(in MPI for Python v4.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpi4py.MPI.Comm</span></code></a>, optional</span></dt><dd><p>MPI Base Communicator. Defaults to <code class="docutils literal notranslate"><span class="pre">mpi4py.MPI.COMM_WORLD</span></code>.</p>
 </dd>

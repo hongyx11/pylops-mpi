@@ -447,6 +447,11 @@
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.DistributedArray.local_split.html">pylops_mpi.DistributedArray.local_split</a></li>
 </ul>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MatrixMult.block_gather.html">pylops_mpi.basicoperators.MatrixMult.block_gather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MatrixMult.local_block_split.html">pylops_mpi.basicoperators.MatrixMult.local_block_split</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MatrixMult.active_grid_comm.html">pylops_mpi.basicoperators.MatrixMult.active_grid_comm</a></li>
+</ul>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.dottest.html">pylops_mpi.utils.dottest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.benchmark.html">pylops_mpi.utils.benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.mark.html">pylops_mpi.utils.mark</a></li>
@@ -534,7 +539,7 @@ instead.</p>
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>global_shape</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Shape of the global array.</p>
+<dt><strong>global_shape</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Shape of the global array.</p>
 </dd>
 <dt><strong>base_comm</strong><span class="classifier"><a class="reference external" href="https://mpi4py.readthedocs.io/en/stable/reference/mpi4py.MPI.Comm.html#mpi4py.MPI.Comm" title="(in MPI for Python v4.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mpi4py.MPI.Comm</span></code></a>, optional</span></dt><dd><p>MPI Communicator over which array is distributed.
 Defaults to <code class="docutils literal notranslate"><span class="pre">mpi4py.MPI.COMM_WORLD</span></code>.</p>
@@ -544,16 +549,16 @@ Communicator is provided, the base_comm will be set to MPI.COMM_WORLD.</p>
 </dd>
 <dt><strong>partition</strong><span class="classifier"><a class="reference internal" href="pylops_mpi.Partition.html#pylops_mpi.Partition" title="pylops_mpi.Partition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Partition</span></code></a>, optional</span></dt><dd><p>Broadcast, UnsafeBroadcast, or Scatter the array. Defaults to <code class="docutils literal notranslate"><span class="pre">Partition.SCATTER</span></code>.</p>
 </dd>
-<dt><strong>axis</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt><dd><p>Axis along which distribution occurs. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<dt><strong>axis</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional</span></dt><dd><p>Axis along which distribution occurs. Defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 </dd>
-<dt><strong>local_shapes</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>, optional</span></dt><dd><p>List of tuples or integers representing local shapes at each rank.</p>
+<dt><strong>local_shapes</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>, optional</span></dt><dd><p>List of tuples or integers representing local shapes at each rank.</p>
 </dd>
-<dt><strong>mask</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>, optional</span></dt><dd><p>Mask defining subsets of ranks to consider when performing ‘global’
+<dt><strong>mask</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>, optional</span></dt><dd><p>Mask defining subsets of ranks to consider when performing ‘global’
 operations on the distributed array such as dot product or norm.</p>
 </dd>
-<dt><strong>engine</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Engine used to store array (<code class="docutils literal notranslate"><span class="pre">numpy</span></code> or <code class="docutils literal notranslate"><span class="pre">cupy</span></code>)</p>
+<dt><strong>engine</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Engine used to store array (<code class="docutils literal notranslate"><span class="pre">numpy</span></code> or <code class="docutils literal notranslate"><span class="pre">cupy</span></code>)</p>
 </dd>
-<dt><strong>dtype</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Type of elements in input array. Defaults to <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code>.</p>
+<dt><strong>dtype</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>, optional</span></dt><dd><p>Type of elements in input array. Defaults to <code class="docutils literal notranslate"><span class="pre">numpy.float64</span></code>.</p>
 </dd>
 </dl>
 </dd>
@@ -617,8 +622,11 @@ operations on the distributed array such as dot product or norm.</p>
 <p><a class="reference internal" href="../../gallery/plot_distributed_array.html#sphx-glr-gallery-plot-distributed-array-py"><span class="std std-ref">Distributed Array</span></a></p>
   <div class="sphx-glr-thumbnail-title">Distributed Array</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="Note that whilst the different blocks of the matrix \mathbf{A} are directly stored in the operator on different ranks, the matrix \mathbf{X} is effectively represented by a 1-D :pypylops_mpi.DistributedArray where the different blocks are flattened and stored on different ranks. Note that to optimize communications, the ranks are organized in a 2D grid and some of the row blocks of \mathbf{A} and column blocks of \mathbf{X} are replicated across different ranks - see below for details."><img alt="" src="../../_images/sphx_glr_plot_matrixmult_thumb.png" />
-<p><a class="reference internal" href="../../gallery/plot_matrixmult.html#sphx-glr-gallery-plot-matrixmult-py"><span class="std std-ref">Distributed Matrix Multiplication</span></a></p>
-  <div class="sphx-glr-thumbnail-title">Distributed Matrix Multiplication</div>
+<p><a class="reference internal" href="../../gallery/plot_matrixmult.html#sphx-glr-gallery-plot-matrixmult-py"><span class="std std-ref">Distributed Matrix Multiplication - Block-row-column decomposition</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Distributed Matrix Multiplication - Block-row-column decomposition</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Note that whilst the different blocks of matrix \mathbf{A} are directly stored in the operator on different ranks, the matrices \mathbf{X} and \mathbf{Y} are effectively represented by 1-D :pypylops_mpi.DistributedArray objects where the different blocks are flattened and stored on different ranks. Note that to optimize communications, the ranks are organized in a square grid and blocks of \mathbf{A} and \mathbf{X} are systematically broadcast across different ranks during computation - see below for details."><img alt="" src="../../_images/sphx_glr_plot_summamatrixmult_thumb.png" />
+<p><a class="reference internal" href="../../gallery/plot_summamatrixmult.html#sphx-glr-gallery-plot-summamatrixmult-py"><span class="std std-ref">Distributed Matrix Multiplication - SUMMA</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Distributed Matrix Multiplication - SUMMA</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the use of the :pypylops_mpi.MPILinearOperator to wrap PyLops Operators. PyLops operators can be converted into :pypylops_mpi.MPILinearOperator using the :pypylops_mpi.asmpilinearoperator method. Additionally, the example showcases how to use these wrapped PyLops operators with other operators provided by PyLops-MPI."><img alt="" src="../../_images/sphx_glr_plot_mpilinop_thumb.png" />
 <p><a class="reference internal" href="../../gallery/plot_mpilinop.html#sphx-glr-gallery-plot-mpilinop-py"><span class="std std-ref">MPILinearOperator</span></a></p>
   <div class="sphx-glr-thumbnail-title">MPILinearOperator</div>

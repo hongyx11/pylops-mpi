@@ -282,7 +282,7 @@ and perform different mathematical operations on those two objects.
 
  .. code-block:: none
 
-    Dot-product: 548.0
+    Dot-product: [548.]
     Dot-product (np): 548.0
 
 
@@ -403,7 +403,7 @@ of distributed arrays
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.016 seconds)
+   **Total running time of the script:** (0 minutes 0.017 seconds)
 
 
 .. _sphx_glr_download_gallery_plot_stacked_array.py:

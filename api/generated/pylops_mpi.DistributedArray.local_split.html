@@ -57,7 +57,7 @@
     <link rel="icon" href="../../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="pylops_mpi.utils.dottest" href="pylops_mpi.utils.dottest.html" />
+    <link rel="next" title="pylops_mpi.basicoperators.MatrixMult.block_gather" href="pylops_mpi.basicoperators.MatrixMult.block_gather.html" />
     <link rel="prev" title="pylops_mpi.optimization.basic.cgls" href="pylops_mpi.optimization.basic.cgls.html" />
     
     <script src="../../_static/require.js"></script>
@@ -447,6 +447,11 @@
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">pylops_mpi.DistributedArray.local_split</a></li>
 </ul>
 <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MatrixMult.block_gather.html">pylops_mpi.basicoperators.MatrixMult.block_gather</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MatrixMult.local_block_split.html">pylops_mpi.basicoperators.MatrixMult.local_block_split</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pylops_mpi.basicoperators.MatrixMult.active_grid_comm.html">pylops_mpi.basicoperators.MatrixMult.active_grid_comm</a></li>
+</ul>
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.dottest.html">pylops_mpi.utils.dottest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.benchmark.html">pylops_mpi.utils.benchmark</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pylops_mpi.utils.mark.html">pylops_mpi.utils.mark</a></li>
@@ -519,19 +524,19 @@
 <dl class="field-list">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><dl>
-<dt><strong>global_shape</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a></span></dt><dd><p>Shape of the global array.</p>
+<dt><strong>global_shape</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a></span></dt><dd><p>Shape of the global array.</p>
 </dd>
 <dt><strong>base_comm</strong><span class="classifier"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MPI.Comm</span></code></span></dt><dd><p>Base MPI Communicator.</p>
 </dd>
 <dt><strong>partition</strong><span class="classifier"><a class="reference internal" href="pylops_mpi.Partition.html#pylops_mpi.Partition" title="pylops_mpi.DistributedArray.Partition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Partition</span></code></a></span></dt><dd><p>Type of partition.</p>
 </dd>
-<dt><strong>axis</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Axis of distribution</p>
+<dt><strong>axis</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></span></dt><dd><p>Axis of distribution</p>
 </dd>
 </dl>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><dl>
-<dt><strong>local_shape</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a></span></dt><dd><p>Shape of the local array.</p>
+<dt><strong>local_shape</strong><span class="classifier"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a></span></dt><dd><p>Shape of the local array.</p>
 </dd>
 </dl>
 </dd>
@@ -572,11 +577,11 @@
       </div>
     </a>
     <a class="right-next"
-       href="pylops_mpi.utils.dottest.html"
+       href="pylops_mpi.basicoperators.MatrixMult.block_gather.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">pylops_mpi.utils.dottest</p>
+        <p class="prev-next-title">pylops_mpi.basicoperators.MatrixMult.block_gather</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
