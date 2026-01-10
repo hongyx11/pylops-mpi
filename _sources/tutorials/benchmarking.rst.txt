@@ -108,7 +108,7 @@ i.e., :py:func:`@benchmark(description="printout_name")`
       ncp.dot(x.local_array.flatten(), y.local_array.flatten()),
     /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pylops_mpi/DistributedArray.py:598: RuntimeWarning: invalid value encountered in dot
       ncp.dot(x.local_array.flatten(), y.local_array.flatten()),
-    [decorator]inner_func: total runtime: 0.002449 s
+    [decorator]inner_func: total runtime: 0.002491 s
 
 
 
@@ -163,9 +163,9 @@ measurement of the top-level function and those that comes from :py:func:`pylops
 
  .. code-block:: none
 
-    [decorator]inner_func_with_mark: total runtime: 0.000377 s
-            Begin array constructor-->Begin dot: 0.000036 s
-            Begin dot-->Finish dot: 0.000337 s
+    [decorator]inner_func_with_mark: total runtime: 0.000383 s
+            Begin array constructor-->Begin dot: 0.000034 s
+            Begin dot-->Finish dot: 0.000345 s
 
 
 
@@ -224,11 +224,11 @@ printed out with the nested indentation to specify that nested calls.
       SumArray[:] = self.local_array + dist_array.local_array
     /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/pylops_mpi/DistributedArray.py:550: RuntimeWarning: invalid value encountered in add
       SumArray[:] = self.local_array + dist_array.local_array
-    [decorator]outer_func_with_mark: total runtime: 0.000874 s
-            [decorator]inner_func_with_mark: total runtime: 0.000311 s
-                    Begin array constructor-->Begin dot: 0.000027 s
-                    Begin dot-->Finish dot: 0.000281 s
-            Outer func start-->Outer func ends: 0.000871 s
+    [decorator]outer_func_with_mark: total runtime: 0.000866 s
+            [decorator]inner_func_with_mark: total runtime: 0.000327 s
+                    Begin array constructor-->Begin dot: 0.000024 s
+                    Begin dot-->Finish dot: 0.000300 s
+            Outer func start-->Outer func ends: 0.000863 s
 
 
 
