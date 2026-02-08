@@ -225,6 +225,7 @@ def mpi_recv(base_comm: MPI.Comm,
         recv_buf = _mpi_calls(base_comm.recv, engine=engine, source=source, tag=tag)
     return recv_buf
 
+
 def _mpi_calls(call, *args, engine: Optional[str] = "numpy", **kwargs):
     """MPI Calls
     Wrapper around MPI comm calls with optional GPU synchronization for CuPy arrays.
