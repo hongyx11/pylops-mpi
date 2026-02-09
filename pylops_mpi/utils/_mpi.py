@@ -247,7 +247,7 @@ def _mpi_calls(comm: MPI.Comm, func: str, *args, engine: Optional[str] = "numpy"
     -------
         Result of the MPI call
     """
-    if engine == "cupy":
+    if engine == "cupy" and deps.cuda_aware_mpi_enabled:
         ncp = get_module(engine)
         ncp.cuda.Device().synchronize()
     mpi_func = getattr(comm, func)
