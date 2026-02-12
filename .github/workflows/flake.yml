@@ -2,7 +2,8 @@
 # For more information see: https://github.com/marketplace/actions/python-flake8-lint
 name: PyLops-MPI-flake8
 
-on: [push, pull_request]
+on:
+  workflow_dispatch:
 
 jobs:
   flake8-lint:
