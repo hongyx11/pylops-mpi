@@ -1,0 +1,36 @@
+name: PyLops-MPI (CuPy)
+
+on: [push, pull_request]
+
+jobs:
+  build-mpi:
+    strategy:
+      matrix:
+        rank: ['2','4']
+    runs-on: self-hosted
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v4
+      - name: Set up Python environment and Install dependencies and pylops
+        run: |
+          python3 -m venv .venv-pylops
+          # write install scripts
+          cat << 'EOF' > pylops_tests.sh
+          #!/bin/bash
+          PYTHON=.venv-pylops/bin/python3
+          PIP=.venv-pylops/bin/pip
+          ls $PYTHON
+          ls $PIP
+          $PIP install --upgrade pip setuptools
+          $PIP install flake8 pytest setuptools-scm
+          $PIP install -r requirements-dev.txt
+          $PIP install cupy-cuda12x
+          $PYTHON -m setuptools_scm
+          $PIP install .
+          EOF
+          which mpirun
+          srun --account=yuxilab -n 1 -N 1 --gres=gpu:L40S:1 bash pylops_tests.sh
+      - name: Tests with pytest 
+        run: |
+          which mpirun
+          srun --account=yuxilab -n 1 -N 1 --gres=gpu:L40S:1 --mpi=list
