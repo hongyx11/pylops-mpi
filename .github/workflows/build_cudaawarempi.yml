@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-mpi:
+  build-cudaaware-mpi:
     strategy:
       matrix:
         rank: ['2']
