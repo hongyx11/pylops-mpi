@@ -37,3 +37,4 @@ jobs:
           export PATH=/u/yuxihong/workspace/local/openmpi_cudaaware_install/bin:$PATH
           which mpirun
           srun --account=yuxilab -n 1 -N 1 --gres=gpu:L40S:1 --mpi=list
+          srun --account=yuxilab -n ${{ matrix.rank }} -N 1 --gres=gpu:L40S:${{matrix.rank}} python3 examples/test_cudaawarempi.py
