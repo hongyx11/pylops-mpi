@@ -1,4 +1,4 @@
-name: PyLops-MPI (CuPy)
+name: PyLops-MPI (CuPy, CUDA-Aware MPI)
 
 on: [push, pull_request]
 
