@@ -5,7 +5,7 @@ import cupy as cp
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
 size = comm.Get_size()
-printf("rank + ", rank)
+print("rank + ", rank)
 N = 10
 if size < 2:
     if rank == 0:
